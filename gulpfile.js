@@ -1,13 +1,5 @@
-var $        	= require('gulp-load-plugins')();
-var argv     	= require('yargs').argv;
 var gulp     	= require('gulp');
-var rimraf   	= require('rimraf');
-var requireDir 	= require('require-dir');
-var router   	= require('front-router');
-var sequence 	= require('run-sequence');
 var fs 			= require('fs');
-var shell 	 	= require('gulp-shell');
-var GulpSSH 	= require('gulp-ssh');
 var exec 		= require('gulp-exec');
 
 // Settings
@@ -25,22 +17,20 @@ var username= "/HansUXdev";
     var studentList = [
         // "HansUXdev" // for testing
         "peques",
-        "jeffhatch",
-        "joselsalazar",
-        "jeffhatch",
+       "joselsalazar",
+       "jeffhatch",
         "Lolobrew",
         "ptk88",
         "wesvanduine",
-        "Cperez2187",
         "tkappha",
         "Cperez2187",
         "afflatus480",
         "cqliu1",
-        "heythisispaul",
+        //"heythisispaul",
     ];
 
   var options = {
-    continueOnError: true, // default = false, true means don't emit error event 
+    continueOnError: false, // default = false, true means don't emit error event 
     pipeStdout: false, // default = false, true means stdout is written to file.contents 
     customTemplatingThing: "test" // content passed to gutil.template() 
   };
@@ -55,16 +45,17 @@ var username= "/HansUXdev";
 // - - - - - - - - - - - - - - 
     var urlList = [];
     var urlList = studentList.map(function(student) {
-        return 'mkdir '+ student //+ ' && git clone '+ site + student + reponame + ' ' + student)
+        return 'mkdir '+ student + ' && git clone '+ site + student + reponame + ' ' + student  
     })
 
+    //return 'mkdir ' + student;
 
-    console.log(urlList);
-    urlList.forEach(function(url) {
+    var command = urlList.join(' && ')
 
-        gulp.task('default', function() {
-            return gulp.src('./**/**').pipe(exec(url,options)).pipe(exec.reporter(reportOptions));
-        })
+    console.log(command);
+
+    gulp.task('default', function() {
+      return gulp.src('./**/**').pipe(exec(command,options)).pipe(exec.reporter(reportOptions));
     })
 
 // 2. Lint the student files
@@ -79,27 +70,27 @@ var username= "/HansUXdev";
 // - - - - - - - - - - - - - - -
 
     // Starts a test server, which you can view at http://localhost:8079
-    gulp.task('server', ['build'], function() {
-        // for (var i = 0; i < username.length; i++)
-        gulp.src('./build')
-        .pipe($.webserver({
-            port: 8079,
-            host: 'localhost',
-            fallback: 'index.html',
-            livereload: true,
-            open: true
-        }))
-        ;
-        // }
-    });
+//     gulp.task('server', ['build'], function() {
+//         // for (var i = 0; i < username.length; i++)
+//         gulp.src('./build')
+//         .pipe($.webserver({
+//             port: 8079,
+//             host: 'localhost',
+//             fallback: 'index.html',
+//             livereload: true,
+//             open: true
+//         }))
+//         ;
+//         // }
+//     });
 
 
 
-// Default task: builds your app, starts a server, and recompiles assets when they change
-gulp.task('default', ['server'], function () {
+// // Default task: builds your app, starts a server, and recompiles assets when they change
+// gulp.task('default', ['server'], function () {
   
-  // gulp.watch(['./client/**/*.*', '!./client/templates/**/*.*', '!./client/assets/{scss,js}/**/*.*'], ['copy']);
+//   // gulp.watch(['./client/**/*.*', '!./client/templates/**/*.*', '!./client/assets/{scss,js}/**/*.*'], ['copy']);
 
-});
+// });
 
 
