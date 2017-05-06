@@ -3,7 +3,8 @@
   "version": "1.2.0",
   "scripts": {
     "start": "gulp",
-    "build": "gulp build --production"
+    "build": "gulp build --production",
+    "gulp": "node_modules/gulp/bin/gulp.js"
   },
   "devDependencies": {
     "grunt": "^1.0.1",

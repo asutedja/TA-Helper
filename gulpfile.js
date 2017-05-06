@@ -2,31 +2,32 @@ var gulp     	= require('gulp');
 var fs 			= require('fs');
 var exec 		= require('gulp-exec');
 
+
+
+
 // Settings
 var site= "https://github.com/";
-
-// This is just for testing
-var username= "/HansUXdev";
 
 // The naming should be standardized
     // "quickDemoApp";
     // "Basic-Portfolio";
     // "/repair-hub";
-    var reponame = "/Basic-Portfolio";
+    var reponame = "/week-4-game";
 // 
     var studentList = [
-        // "HansUXdev" // for testing
-        "peques",
-       "joselsalazar",
+      "dukes520",
+       "cqliu1",
+       "Cperez2187",
+       "OrigChrisScott",
+       "dfweber",
+       "MonsterMetroid",
+       "neophoenix733",
        "jeffhatch",
-        "Lolobrew",
-        "ptk88",
-        "wesvanduine",
-        "tkappha",
-        "Cperez2187",
-        "afflatus480",
-        "cqliu1",
-        //"heythisispaul",
+       "lolobrew",
+       "jcdova",
+       "joselsalazar",
+       "Kevinevalente",
+       "danaeboyd"
     ];
 
   var options = {
@@ -45,10 +46,11 @@ var username= "/HansUXdev";
 // - - - - - - - - - - - - - - 
     var urlList = [];
     var urlList = studentList.map(function(student) {
-        return 'mkdir '+ student + ' && git clone '+ site + student + reponame + ' ' + student  
+        return 'mkdir Students/' + student + '/' + reponame + ' || true && git clone ' + site + student + reponame + ' Students/' + student + '/' + reponame + '|| true';  
     })
 
-    //return 'mkdir ' + student;
+    //Use below to make student folders
+    //return 'mkdir Students/'+ student + ' || true';
 
     var command = urlList.join(' && ')
 
