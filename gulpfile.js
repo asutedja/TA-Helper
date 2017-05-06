@@ -50,8 +50,9 @@ var site = "https://github.com/";
 
     //Use below to make student folders
     //return 'mkdir Students/'+ student + ' || true';
+    //return 'mkdir Students/' + student + reponame + ' || true && git clone ' + site + student + reponame + ' Students/' + student +  reponame + '|| true';  
 
-    var command = urlList.join(' && ')
+    var command = urlList.join(' && ');
 
     // console.log(command);
 

@@ -1,5 +1,5 @@
 var settings = {
-	reponames: ['/Bootstrap-Portfolio', '/Responsive-Portfolio'],
+	reponames: ['/week-4-game', '/Crystal'],
 	studentList: [
       "dukes520",
        "cqliu1",
