@@ -1,34 +1,24 @@
 var gulp     	= require('gulp');
 var fs 			= require('fs');
-var exec 		= require('gulp-exec');
+// var exec 		= require('gulp-exec');
+var settings = require('./settings.js');
+var exec = require('child_process').exec;
+ 
+
 
 
 
 
 // Settings
-var site= "https://github.com/";
+var site = "https://github.com/";
 
 // The naming should be standardized
     // "quickDemoApp";
     // "Basic-Portfolio";
     // "/repair-hub";
-    var reponame = "/week-4-game";
+    var reponames = settings.reponames;
 // 
-    var studentList = [
-      "dukes520",
-       "cqliu1",
-       "Cperez2187",
-       "OrigChrisScott",
-       "dfweber",
-       "MonsterMetroid",
-       "neophoenix733",
-       "jeffhatch",
-       "lolobrew",
-       "jcdova",
-       "joselsalazar",
-       "Kevinevalente",
-       "danaeboyd"
-    ];
+    var studentList = settings.studentList;
 
   var options = {
     continueOnError: false, // default = false, true means don't emit error event 
@@ -44,22 +34,38 @@ var site= "https://github.com/";
 // 1. Clone repos
 // Create a task that loops through a list of users and clone each repo in a "build folder"
 // - - - - - - - - - - - - - - 
+    
     var urlList = [];
-    var urlList = studentList.map(function(student) {
-        return 'mkdir Students/' + student + '/' + reponame + ' || true && git clone ' + site + student + reponame + ' Students/' + student + '/' + reponame + '|| true';  
+    urlList.concat(['', 'asdasdad'])
+    reponames.forEach(function(reponame) {
+
+      var list = studentList.map(function(student) {
+          return 'mkdir Students/' + student + reponame + ' || true && git clone ' + site + student + reponame + ' Students/' + student +  reponame + '|| true';  
+      })
+      urlList = urlList.concat(list);
     })
+
+
+  
 
     //Use below to make student folders
     //return 'mkdir Students/'+ student + ' || true';
 
     var command = urlList.join(' && ')
 
-    console.log(command);
+    // console.log(command);
 
-    gulp.task('default', function() {
-      return gulp.src('./**/**').pipe(exec(command,options)).pipe(exec.reporter(reportOptions));
-    })
+    // gulp.task('default', function() {
+    //   return gulp.src('./**/**').pipe(exec(command,options)).pipe(exec.reporter(reportOptions));
+    // })
 
+    gulp.task('default', function (cb) {
+    exec(command, function (err, stdout, stderr) {
+      console.log(stdout);
+      console.log(stderr);
+      cb(err);
+  });
+})
 // 2. Lint the student files
 // Create a task that loops through each student repo, lints the students html, css and js and exports a report
 // - - - - - - - - - - - - - - -
